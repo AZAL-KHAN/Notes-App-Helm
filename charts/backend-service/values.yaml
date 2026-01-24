@@ -1,0 +1,40 @@
+namespace: notes-app
+
+labels:
+  app: backend
+
+replicaCount: 1
+
+image:
+  repository: khanazal/notesapp-backend
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  port: 5000
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+config:
+  DB_HOST: mysql-service
+  DB_NAME: notesdb
+
+secret:
+  DB_USER: notes_user
+  DB_PASSWORD: notes_password
+
+hpa:
+  minReplicas: 2
+  maxReplicas: 5
+  cpuUtilization: 10
+  scaleDown:
+    stabilizationWindowSeconds: 30
+    policies:
+      value: 100
+      periodSeconds: 15

@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: khanazal/notesapp-frontend
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  name: frontend-service
+  type: ClusterIP
+  port: 5000
+  targetPort: 5000
+
+resources:
+  requests:
+    cpu: "50m"
+    memory: "64Mi"
+  limits:
+    cpu: "300m"
+    memory: "128Mi"
+
+env:
+  AUTH_URL: http://auth-service:5000
+  API_URL: http://backend-service:5000
+
+hpa:
+  minReplicas: 2
+  maxReplicas: 6
+  averageUtilization: 10

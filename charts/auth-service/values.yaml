@@ -1,0 +1,32 @@
+replicaCount: 1
+
+image:
+  repository: khanazal/notesapp-auth
+  tag: v1
+  pullPolicy: IfNotPresent
+
+service:
+  name: auth-service
+  port: 5000
+  targetPort: 5000
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+config:
+  DB_HOST: mysql-service
+  DB_NAME: notesdb
+
+secret:
+  DB_USER: notes_user
+  DB_PASSWORD: notes_password
+
+hpa:
+  minReplicas: 2
+  maxReplicas: 4
+  averageUtilization: 10

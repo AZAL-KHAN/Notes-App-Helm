@@ -1,0 +1,23 @@
+apiVersion: v2
+name: notes-app
+description: Umbrella Helm chart for Notes App
+type: application
+version: 0.1.0
+appVersion: "1.0"
+
+dependencies:
+  - name: mysql
+    version: 0.1.0
+    repository: "file://charts/mysql"
+
+  - name: backend-service
+    version: 0.1.0
+    repository: "file://charts/backend-service"
+
+  - name: auth-service
+    version: 0.1.0
+    repository: "file://charts/auth-service"
+
+  - name: frontend-service
+    version: 0.1.0
+    repository: "file://charts/frontend-service"

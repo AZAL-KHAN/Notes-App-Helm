@@ -1,0 +1,15 @@
+dependencies:
+- name: mysql
+  repository: file://charts/mysql
+  version: 0.1.0
+- name: backend-service
+  repository: file://charts/backend-service
+  version: 0.1.0
+- name: auth-service
+  repository: file://charts/auth-service
+  version: 0.1.0
+- name: frontend-service
+  repository: file://charts/frontend-service
+  version: 0.1.0
+digest: sha256:1561cddb271a5fdf3acb6a8feda150e502dfb480d158c63e927abd627c0ed209
+generated: "2026-01-17T11:47:32.292670696+05:30"
