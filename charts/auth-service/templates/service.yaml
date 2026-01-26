@@ -5,7 +5,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   selector:
-    app: auth
+    app: {{ .Values.labels.app }}
   ports:
     - name: http
       port: {{ .Values.service.port }}

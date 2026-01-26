@@ -1,3 +1,6 @@
+labels:
+  app: auth
+
 replicaCount: 1
 
 image:
@@ -31,3 +34,8 @@ hpa:
   minReplicas: 2
   maxReplicas: 4
   averageUtilization: 10
+  scaleDown:
+    stabilizationWindowSeconds: 30
+    policies:
+      value: 100
+      periodSeconds: 15

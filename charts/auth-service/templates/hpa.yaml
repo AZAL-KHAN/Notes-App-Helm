@@ -7,8 +7,10 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: auth
+
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
+
   metrics:
     - type: Resource
       resource:
@@ -19,8 +21,8 @@ spec:
 
   behavior:
     scaleDown:
-      stabilizationWindowSeconds: 30
+      stabilizationWindowSeconds: {{ .Values.hpa.scaleDown.stabilizationWindowSeconds }}
       policies:
         - type: Percent
-          value: 100
-          periodSeconds: 15
+          value: {{ .Values.hpa.scaleDown.policies.value }}
+          periodSeconds: {{ .Values.hpa.scaleDown.policies.periodSeconds }}
