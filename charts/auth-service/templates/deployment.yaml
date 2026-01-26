@@ -16,16 +16,18 @@ spec:
         - name: auth
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
           ports:
-            - containerPort: 5000
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
 
           resources:
             requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu | quote }}
+              memory: {{ .Values.resources.requests.memory | quote }}
             limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu | quote }}
+              memory: {{ .Values.resources.limits.memory | quote }}
 
           env:
             - name: DB_HOST

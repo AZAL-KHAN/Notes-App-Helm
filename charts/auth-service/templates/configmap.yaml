@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: auth-config
 data:
-  DB_HOST: {{ .Values.config.DB_HOST }}
-  DB_NAME: {{ .Values.config.DB_NAME }}
+  DB_HOST: {{ .Values.config.DB_HOST | quote }}
+  DB_NAME: {{ .Values.config.DB_NAME | quote }}
