@@ -2,13 +2,17 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: frontend-hpa
+  labels:
+    app: {{ .Values.labels.app }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: frontend
+    name: {{ .Values.labels.app }}
+
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
+
   metrics:
     - type: Resource
       resource:
@@ -19,8 +23,8 @@ spec:
 
   behavior:
     scaleDown:
-      stabilizationWindowSeconds: 30
+      stabilizationWindowSeconds: {{ .Values.hpa.scaleDown.stabilizationWindowSeconds }}
       policies:
         - type: Percent
-          value: 100
-          periodSeconds: 15
+          value: {{ .Values.hpa.scaleDown.policies.value }}
+          periodSeconds: {{ .Values.hpa.scaleDown.policies.periodSeconds }}

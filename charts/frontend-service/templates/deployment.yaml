@@ -1,34 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ .Values.labels.app }}
+  labels:
+    app: {{ .Values.labels.app }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: frontend
+      app: {{ .Values.labels.app }}
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ .Values.labels.app }}
     spec:
       containers:
-        - name: frontend
+        - name: {{ .Values.labels.app }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
           ports:
-            - containerPort: 5000
+            - containerPort: {{ .Values.service.targetPort }}
 
           resources:
             requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu | quote }}
+              memory: {{ .Values.resources.requests.memory | quote }}
             limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu | quote }}
+              memory: {{ .Values.resources.limits.memory | quote }}
 
           env:
             - name: AUTH_URL
-              value: {{ .Values.env.AUTH_URL }}
+              value: {{ .Values.env.AUTH_URL | quote }}
             - name: API_URL
-              value: {{ .Values.env.API_URL }}
+              value: {{ .Values.env.API_URL | quote }}
