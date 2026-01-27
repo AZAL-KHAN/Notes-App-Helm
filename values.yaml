@@ -1,10 +1,8 @@
-namespace: notes-app
-
 ingress:
   name: frontend-ingress
   className: nginx
   host: notes-app
   serviceName: frontend-service
-  servicePort: 5000
+  servicePort: 80
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
