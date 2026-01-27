@@ -2,26 +2,27 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
+  labels:
+    app: {{ .Values.labels.app }}
 spec:
   serviceName: {{ .Values.service.name }}
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: mysql
+      app: {{ .Values.labels.app }}
 
   template:
     metadata:
       labels:
-        app: mysql
+        app: {{ .Values.labels.app }}
     spec:
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | nindent 8 }}
-
       containers:
         - name: mysql
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
           ports:
-            - containerPort: 3306
+            - containerPort: {{ .Values.service.port }}
 
           env:
             - name: MYSQL_ROOT_PASSWORD

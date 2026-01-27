@@ -1,6 +1,12 @@
+labels:
+  app: mysql
+
+replicaCount: 1
+
 image:
   repository: mysql
   tag: "8.0"
+  pullPolicy: IfNotPresent
 
 service:
   name: mysql-service
@@ -8,11 +14,7 @@ service:
 
 storage:
   size: 5Gi
-  storageClass: host-storage
-  hostPath: /mnt/mysql-data
-
-nodeSelector:
-  kubernetes.io/hostname: mycluster-worker
+  storageClass: gp3   # ✅ EKS-compatible
 
 config:
   MYSQL_DATABASE: notesdb
