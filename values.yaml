@@ -1,7 +1,7 @@
 ingress:
   name: frontend-ingress
   className: nginx
-  host: notes-app
+  # host: notes-app
   serviceName: frontend-service
   servicePort: 80
   annotations:
