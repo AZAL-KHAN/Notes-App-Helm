@@ -42,7 +42,6 @@ Notes-App-Helm
 │       ├── Chart.yaml
 │       ├── templates
 │       │   ├── configmap.yaml
-│       │   ├── pv.yaml
 │       │   ├── secret.yaml
 │       │   ├── service.yaml
 │       │   └── statefulset.yaml
@@ -50,10 +49,9 @@ Notes-App-Helm
 ├── Chart.yaml
 ├── README.md
 ├── templates
-│   ├── ingress.yaml
-│   └── namespace.yaml
+│   └── ingress.yaml
 └── values.yaml
 
-11 directories, 32 files
+11 directories, 30 files
 
 ```
