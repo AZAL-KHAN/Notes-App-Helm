@@ -103,7 +103,7 @@ backend-service:
         periodSeconds: 15
 
 # =========================
-# Frontend Service (ADDED)
+# Frontend Service
 # =========================
 frontend-service:
   labels:
@@ -143,3 +143,33 @@ frontend-service:
       policies:
         value: 100
         periodSeconds: 15
+
+# =========================
+# MySQL (ADDED)
+# =========================
+mysql:
+  labels:
+    app: mysql
+
+  replicaCount: 1
+
+  image:
+    repository: mysql
+    tag: "8.0"
+    pullPolicy: IfNotPresent
+
+  service:
+    name: mysql-service
+    port: 3306
+
+  storage:
+    size: 5Gi
+    storageClass: gp3
+
+  config:
+    MYSQL_DATABASE: notesdb
+
+  secret:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: notes_user
+    MYSQL_PASSWORD: notes_password

@@ -4,8 +4,8 @@ labels:
 replicaCount: 1
 
 image:
-  repository: mysql
-  tag: "8.0"
+  repository: ""
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 service:
@@ -13,13 +13,9 @@ service:
   port: 3306
 
 storage:
-  size: 5Gi
-  storageClass: gp3   # ✅ EKS-compatible
+  size: ""
+  storageClass: ""
 
-config:
-  MYSQL_DATABASE: notesdb
+config: {}
 
-secret:
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_USER: notes_user
-  MYSQL_PASSWORD: notes_password
+secret: {}
