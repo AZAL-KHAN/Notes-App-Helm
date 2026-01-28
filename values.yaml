@@ -1,3 +1,6 @@
+# =========================
+# Ingress (unchanged)
+# =========================
 ingress:
   name: frontend-ingress
   className: nginx
@@ -6,3 +9,49 @@ ingress:
   servicePort: 80
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+
+# =========================
+# Auth Service (added)
+# =========================
+auth-service:
+  labels:
+    app: auth
+
+  replicaCount: 1
+
+  image:
+    repository: khanazal/notesapp-auth
+    tag: v1
+    pullPolicy: IfNotPresent
+
+  service:
+    name: auth-service
+    type: ClusterIP
+    port: 5000
+    targetPort: 5000
+
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+
+  config:
+    DB_HOST: mysql-service
+    DB_NAME: notesdb
+
+  secret:
+    DB_USER: notes_user
+    DB_PASSWORD: notes_password
+
+  hpa:
+    minReplicas: 2
+    maxReplicas: 4
+    averageUtilization: 10
+    scaleDown:
+      stabilizationWindowSeconds: 30
+      policies:
+        value: 100
+        periodSeconds: 15
