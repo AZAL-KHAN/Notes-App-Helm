@@ -4,8 +4,8 @@ labels:
 replicaCount: 1
 
 image:
-  repository: khanazal/notesapp-backend
-  tag: v1
+  repository: ""
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 service:
@@ -14,28 +14,10 @@ service:
   port: 5000
   targetPort: 5000
 
-resources:
-  requests:
-    cpu: "100m"
-    memory: "128Mi"
-  limits:
-    cpu: "500m"
-    memory: "256Mi"
+resources: {}
 
-config:
-  DB_HOST: mysql-service
-  DB_NAME: notesdb
+config: {}
 
-secret:
-  DB_USER: notes_user
-  DB_PASSWORD: notes_password
+secret: {}
 
-hpa:
-  minReplicas: 2
-  maxReplicas: 5
-  cpuUtilization: 10
-  scaleDown:
-    stabilizationWindowSeconds: 30
-    policies:
-      value: 100
-      periodSeconds: 15
+hpa: {}
