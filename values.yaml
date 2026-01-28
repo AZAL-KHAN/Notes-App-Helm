@@ -57,7 +57,7 @@ auth-service:
         periodSeconds: 15
 
 # =========================
-# Backend Service (ADDED)
+# Backend Service
 # =========================
 backend-service:
   labels:
@@ -96,6 +96,48 @@ backend-service:
     minReplicas: 2
     maxReplicas: 5
     cpuUtilization: 10
+    scaleDown:
+      stabilizationWindowSeconds: 30
+      policies:
+        value: 100
+        periodSeconds: 15
+
+# =========================
+# Frontend Service (ADDED)
+# =========================
+frontend-service:
+  labels:
+    app: frontend
+
+  replicaCount: 1
+
+  image:
+    repository: khanazal/notesapp-frontend
+    tag: v1
+    pullPolicy: IfNotPresent
+
+  service:
+    name: frontend-service
+    type: ClusterIP
+    port: 80
+    targetPort: 5000
+
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "300m"
+      memory: "128Mi"
+
+  env:
+    AUTH_URL: http://auth-service:5000
+    API_URL: http://backend-service:5000
+
+  hpa:
+    minReplicas: 2
+    maxReplicas: 6
+    averageUtilization: 10
     scaleDown:
       stabilizationWindowSeconds: 30
       policies:
