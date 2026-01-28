@@ -58,7 +58,7 @@ Notes-App-Helm
 
 ---
 
-🚀 Deploy with Helm
+## 🚀 Deploy with Helm
 
 1️⃣ Clone the repository
 ```
@@ -66,23 +66,23 @@ git clone https://github.com/AZAL-KHAN/Notes-App-Helm.git
 cd Notes-App-Helm
 ```
 
-2️⃣ Create namespace
+## 2️⃣ Create namespace
 ```
 kubectl create namespace notes-app
 ```
 
-3️⃣ Update Helm dependencies
+## 3️⃣ Update Helm dependencies
 ```
 helm dependency update
 ```
 
-4️⃣ Install the Helm chart
+## 4️⃣ Install the Helm chart
 ```
 helm install notes-app . \
   --namespace notes-app
 ```
 
-🔄 Upgrade / Redeploy (CI/CD friendly)
+## 🔄 Upgrade / Redeploy (CI/CD friendly)
 
 ```
 helm upgrade notes-app . \
@@ -92,14 +92,14 @@ helm upgrade notes-app . \
   --set-string frontend.image.tag=V1
 ```
 
-🔍 Verify Deployment
+## 🔍 Verify Deployment
 ```
 helm list -n notes-app
 kubectl get pods -n notes-app
 kubectl get svc -n notes-app
 ```
 
-🧹 Cleanup
+## 🧹 Cleanup
 ```
 helm uninstall notes-app -n notes-app
 ```
