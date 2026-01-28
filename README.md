@@ -55,3 +55,51 @@ Notes-App-Helm
 11 directories, 30 files
 
 ```
+
+---
+
+🚀 Deploy with Helm
+
+1️⃣ Clone the repository
+```
+git clone https://github.com/AZAL-KHAN/Notes-App-Helm.git
+cd Notes-App-Helm
+```
+
+2️⃣ Create namespace
+```
+kubectl create namespace notes-app
+```
+
+3️⃣ Update Helm dependencies
+```
+helm dependency update
+```
+
+4️⃣ Install the Helm chart
+```
+helm install notes-app . \
+  --namespace notes-app
+```
+
+🔄 Upgrade / Redeploy (CI/CD friendly)
+
+```
+helm upgrade notes-app . \
+  --namespace notes-app \
+  --set-string auth.image.tag=V1 \
+  --set-string backend.image.tag=V1 \
+  --set-string frontend.image.tag=V1
+```
+
+🔍 Verify Deployment
+```
+helm list -n notes-app
+kubectl get pods -n notes-app
+kubectl get svc -n notes-app
+```
+
+🧹 Cleanup
+```
+helm uninstall notes-app -n notes-app
+```
